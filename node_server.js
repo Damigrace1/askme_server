@@ -21,6 +21,7 @@ app.post('/api/test',(req,res)=>{
 
 app.get(
     '/',(req,res)=>{
+        console.log('dfghj');
         fs.readFile('./sec.html',(err,data) =>{
             if(!err){
                 res.setHeader('Content-Type','text/html');
