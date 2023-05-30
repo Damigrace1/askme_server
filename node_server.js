@@ -19,6 +19,7 @@ app.get(
     '/',(req,res)=>{
         fs.readFile('./sec.html',(err,data) =>{
             if(!err){
+                res.setHeader('Content-Type','text/html');
                 res.write(data);
                 res.end();
             }

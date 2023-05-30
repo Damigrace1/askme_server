@@ -2,9 +2,9 @@ const http = require('http');
 const fs = require('fs');
 http.createServer((req,res)=>
 {
-    
+
 res.setHeader('Content-Type','text/html');
-fs.readFile('./file/index.html',(err, data)=>{
+fs.readFile('./sec.html',(err, data)=>{
     if(err){
         res.end();
         console.log(err);
