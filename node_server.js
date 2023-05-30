@@ -8,7 +8,7 @@ app.post('/api/test',(req,res)=>{
     res.send(
         {
             "statusCode" : 200,
-            "title":"success"
+            "title":"successs"
         }
     );
    
