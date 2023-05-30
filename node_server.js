@@ -2,9 +2,13 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3030;
-
-app.use(express.urlencoded({ extended: false }));
+app.use(function (req, res, next) {
+    console.log(req.body);
+    next();
+});
+   
 app.post('/api/test',(req,res)=>{
+    
     const reqParam = req.body;
     res.send(
         {
