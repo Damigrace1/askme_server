@@ -19,7 +19,8 @@ app.get(
     '/',(req,res)=>{
         fs.readFile('./sec.html',(err,data) =>{
             if(!err){
-                res.send(data);
+                res.write(data);
+                res.end();
             }
         });
     }
