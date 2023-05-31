@@ -2,12 +2,17 @@ const express = require('express');
 const User = require('./models/users');
 const mongoose = require('mongoose');
 const app = express();
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 3030;
-const dbURI = 'mongodb+srv://dami:icui4cu2@cluster0.qitd9ao.mongodb.net/userdetails?retryWrites=true&w=majority'
+const dbURI = 'mongodb+srv://' + process.env.USER + ':' 
++ process.env.PW + '@cluster0.qitd9ao.mongodb.net/userdetails?retryWrites=true&w=majority'
+app.use(bodyParser.json(),(res, req,next)=>{
+    next();
+});
 mongoose.connect(dbURI,{ useNewUrlParser: true, useUnifiedTopology: true }).then((res)=>{
 console.log('connected' + res);
 app.listen(PORT,() => {
-    console.log(`server started on port`);
+    console.log(`server started on ${PORT}`);
   });
 }).catch((err) => console.log('error' + err));
 
@@ -28,7 +33,7 @@ app.get(
 app.post(
     '/reg',(req,res)=>{
         console.log(req.body);
-        res.send("Success")
+        res.send(req.body["age"]);
         
         // const user = new User({
         //   title:req.body['title'],
