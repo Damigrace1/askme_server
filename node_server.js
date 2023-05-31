@@ -27,7 +27,8 @@ app.get(
 )
 app.post(
     '/reg',(req,res)=>{
-        console.log(req);
+        console.log(req.body);
+        res.send("Success")
         
         // const user = new User({
         //   title:req.body['title'],
