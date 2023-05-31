@@ -33,17 +33,17 @@ app.get(
 app.post(
     '/reg',(req,res)=>{
         console.log(req.body);
-        res.send(req.body["age"]);
         
-        // const user = new User({
-        //   title:req.body['title'],
-        //   age:req.body['age']  
-        // });
-        // user.save()
-        // .then((result) =>{
-        //     res.send("Reg Success!");
-        // }).catch((err)=>{
-        //     console.log(err);
-        // });
+        const user = new User({
+          name:req.body['name'],
+          age:req.body['age']  
+        });
+        user.save()
+        .then((result) =>{
+            res.send("Reg Success!");
+        }).catch((err)=>{
+            res.send("error" + err);
+            console.log(err);
+        });
     }
 )

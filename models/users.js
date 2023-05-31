@@ -1,7 +1,7 @@
 const moongose = require('mongoose');
 const schema = moongose.Schema;
 const userSchema = new schema({
-   title:{
+   name:{
     type: String,
     required: true
    } ,
@@ -11,6 +11,6 @@ const userSchema = new schema({
    } 
 },{timestamps : true});
  
-const User = moongose.model('User', userSchema);
+const User = moongose.model('user', userSchema);
 
 module.exports = User;
