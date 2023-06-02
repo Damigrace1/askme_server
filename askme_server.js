@@ -35,6 +35,15 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
         );
         
       });
+      app.get(
+        '/',(req,res)=>{
+
+
+                res.json({"message" : "ok"});
+            
+        }
+    );
+
     }).catch((err) => console.log('error' + err));
 
 async function saveUser(id){
