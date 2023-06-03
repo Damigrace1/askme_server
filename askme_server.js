@@ -48,12 +48,21 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
 
 async function saveUser(id){
     try{
-       await  User.create({
+        const isExist = await User.exists({"regId":id});
+        if(isExist){
+            return {
+                "code" : "200",
+                "message" : "User Exists"};
+        }
+        else{
+            await  User.create({
             regId: id
         });
         return {
             "code" : "200",
             "message" : "Saved!"};
+        }
+       
     }
     catch(err){
         return {
