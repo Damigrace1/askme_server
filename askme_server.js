@@ -33,12 +33,23 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
                 });
             }
         );
-        
+        app.post(
+            '/deleteOne',(req,res)=>{
+                deleteOneText(req.body.userId, req.body.textId).then((val) =>{
+                    res.json(val);
+                });
+            }
+        );
+        app.post(
+            '/deleteAll',(req,res)=>{
+                deleteAllText(req.body.userId).then((val) =>{
+                    res.json(val);
+                });
+            }
+        );
       });
       app.get(
         '/',(req,res)=>{
-
-
                 res.json({"message" : "ok"});
             
         }
@@ -50,23 +61,31 @@ async function saveUser(id){
     try{
         const isExist = await User.exists({"regId":id});
         if(isExist){
+            const veriU = await User.findOne(
+                {regId: id}
+            );
+
             return {
                 "code" : "200",
-                "message" : "User Exists"};
+                "message":"User exists",
+                "texts" : veriU.messages};
         }
         else{
-            await  User.create({
+
+         const newU = await  User.create({
             regId: id
         });
         return {
             "code" : "200",
-            "message" : "Saved!"};
+            "message" : "Saved!",
+            "texts" : newU.messages
+        };
         }
        
     }
     catch(err){
         return {
-            "code" : "200",
+            "code" : "202",
             "message" : err};
     }
 
@@ -86,7 +105,7 @@ async function updateTextArray(id,text){
     }
     catch(err){
         return {
-            "code" : "200",
+            "code" : "202",
             "message" : err};
     }
 }
@@ -104,14 +123,42 @@ async function readAllTexts(id){
      }
      catch(err){
          return {
-             "code" : "200",
+             "code" : "202",
              "message" : err};
      }
 
 }
-async function deleteOneText(){
-
+async function deleteOneText(id,tId){
+    try{
+        const user = await User.findOne({
+            regId:id
+        });
+       await user.messages.id(tId).deleteOne();
+       await user.save();
+     return {
+        "code" : "200",
+        "message" : "deleted!"};
+    }
+    catch(err){
+        return {
+            "code" : "202",
+            "message" : err};
+    }
 }
-async function deleteAllText(){
-
+async function deleteAllText(id){
+    try{
+        const user = await User.findOne({
+            regId:id
+        });
+        user.messages = [];
+       await user.save();
+     return {
+        "code" : "200",
+        "message" : "deleted!"};
+    }
+    catch(err){
+        return {
+            "code" : "202",
+            "message" : err};
+    }
 }
