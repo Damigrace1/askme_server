@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const consts = require('./consts');
+
 const User = require('./schemas/reg_model');
 const bodyParser = require('body-parser');
 const app = express();
+const fs = require('fs');
 
 mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true }).then((res)=>{
     console.log("mongo connected");
@@ -50,7 +52,17 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
       });
       app.get(
         '/',(req,res)=>{
-                res.json({"message" : "ok"});
+            fs.readFile('./index.html',(err,data) =>{
+                if(err){
+                    res.send(
+                        'Oops! an error Occurred' + err
+                    )
+                }
+                else{
+                    res.send(data);
+                }
+            });
+               // res.send(landingPage);
             
         }
     );
