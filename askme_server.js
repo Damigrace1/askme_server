@@ -59,7 +59,7 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
                     )
                 }
                 else{
-                    res.send(data);
+                    res.sendFile(data);
                 }
             });
                // res.send(landingPage);
