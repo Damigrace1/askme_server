@@ -52,19 +52,12 @@ mongoose.connect(consts.dbURI,{ useNewUrlParser: true, useUnifiedTopology: true 
       });
       app.get(
         '/',(req,res)=>{
-            fs.readFile('./index.html',(err,data) =>{
-                if(err){
-                    res.send(
-                        'Oops! an error Occurred' + err
-                    )
-                }
-                else{
-                    res.sendFile(data);
-                }
-            });
-               // res.send(landingPage);
             
-        }
+                    res.sendFile(__dirname + '/index.html');
+                }
+        
+               // res.send(landingPage);
+    
     );
 
     }).catch((err) => console.log('error' + err));
